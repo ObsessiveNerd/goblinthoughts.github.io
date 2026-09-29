@@ -4,4 +4,5 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
     site: 'https://obsessivenerd.github.io/',
+    base: '/goblinthoughts.github.io',
 });

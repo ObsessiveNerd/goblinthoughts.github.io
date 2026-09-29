@@ -9,10 +9,11 @@ const sections = [
 	{ slug: 'ttrpg', title: 'TTRPG', description: 'Systems, sessions, mechanics, and table talk.' },
 	{ slug: 'blog', title: 'Blog', description: 'Everything else worth writing down.' },
 ];
+const base = `${import.meta.env.BASE_URL}/`;
 ---
 <Layout title="Goblin Thoughts" description="Notes on games, film, tabletop RPGs, and making things.">
 	<section class="hero"><p class="eyebrow">Goblin Thoughts</p><h1>Notes from the workshop.</h1><p class="lede">Devlogs, film projects, tabletop obsessions, and the occasional thought that escaped into the wild.</p></section>
-	<section class="sections" aria-label="Sections">{sections.map((section) => <a class="section-card" href={`/${section.slug}/`}><h2>{section.title}</h2><p>{section.description}</p><span>Explore →</span></a>)}</section>
+	<section class="sections" aria-label="Sections">{sections.map((section) => <a class="section-card" href={`${base}${section.slug}/`}><h2>{section.title}</h2><p>{section.description}</p><span>Explore →</span></a>)}</section>
 	<section class="latest"><div class="section-heading"><p class="eyebrow">Recent writing</p><h2>Fresh from the notebook</h2></div><div class="post-list">{posts.slice(0, 4).map((post) => <PostCard post={post} />)}</div></section>
 </Layout>
 <style>

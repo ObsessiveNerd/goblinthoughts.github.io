@@ -1,12 +1,13 @@
 ---
 interface Props { title?: string; description?: string; }
 const { title = 'Goblin Thoughts', description = 'Notes on making things.' } = Astro.props;
+const base = `${import.meta.env.BASE_URL}/`;
 ---
 <!doctype html>
 <html lang="en">
-	<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta name="description" content={description} /><link rel="icon" type="image/svg+xml" href="/favicon.svg" /><title>{title}</title></head>
+	<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta name="description" content={description} /><link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} /><title>{title}</title></head>
 	<body>
-		<header><nav aria-label="Main navigation"><a class="brand" href="/">Goblin Thoughts</a><div><a href="/games/">Games</a><a href="/film/">Film</a><a href="/ttrpg/">TTRPG</a><a href="/blog/">Blog</a></div></nav></header>
+		<header><nav aria-label="Main navigation"><a class="brand" href={base}>Goblin Thoughts</a><div><a href={`${base}games/`}>Games</a><a href={`${base}film/`}>Film</a><a href={`${base}ttrpg/`}>TTRPG</a><a href={`${base}blog/`}>Blog</a></div></nav></header>
 		<main><slot /></main><footer>Made with curiosity and probably too many notes.</footer>
 	</body>
 </html>

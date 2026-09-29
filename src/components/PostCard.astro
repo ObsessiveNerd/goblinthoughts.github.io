@@ -5,10 +5,11 @@ const { post } = Astro.props;
 const { data, id } = post;
 const date = data.pubDate.toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
 const slug = id.replace(new RegExp(`^${data.section}/`), '');
+const base = `${import.meta.env.BASE_URL}/`;
 ---
 <article class="post-card">
 	<p class="meta">{data.section}{data.project && ` · ${data.project}`}</p>
-	<h3><a href={`/${data.section}/${slug}/`}>{data.title}</a></h3>
+	<h3><a href={`${base}${data.section}/${slug}/`}>{data.title}</a></h3>
 	<p>{data.description}</p>
 	<time datetime={data.pubDate.toISOString()}>{date}</time>
 </article>
