@@ -1,0 +1,8 @@
+---
+import { getCollection } from 'astro:content'; import Layout from '../../layouts/Layout.astro'; import PostCard from '../../components/PostCard.astro';
+const sections = ['blog', 'games', 'film', 'ttrpg'] as const; export function getStaticPaths() { return ['blog', 'games', 'film', 'ttrpg'].map((section) => ({ params: { section } })); }
+const section = Astro.params.section as typeof sections[number]; const titles = { blog: 'Blog', games: 'Games', film: 'Film', ttrpg: 'TTRPG' };
+const posts = (await getCollection('writing', ({ data }) => data.section === section && !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Layout title={`${titles[section]} · Goblin Thoughts`} description={`Writing about ${titles[section].toLowerCase()}.`}><section class="intro"><p class="eyebrow">Section</p><h1>{titles[section]}</h1></section><div class="post-list">{posts.length ? posts.map((post) => <PostCard post={post} />) : <p>No posts here yet. Add one in <code>src/content/writing</code>.</p>}</div></Layout>
+<style>.intro { padding: 4rem 0 2rem; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .13em; font: 700 .72rem system-ui, sans-serif; }.intro h1 { font-size: clamp(3rem, 8vw, 5rem); letter-spacing: -.07em; margin: .4rem 0 0; }.post-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; } @media (max-width: 620px) { .post-list { grid-template-columns: 1fr; } }</style>

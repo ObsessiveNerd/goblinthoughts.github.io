@@ -1,11 +1,22 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import PostCard from '../components/PostCard.astro';
+const posts = (await getCollection('writing')).filter(({ data }) => !data.draft).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sections = [
+	{ slug: 'games', title: 'Games', description: 'Devlogs, prototypes, and things learned while making games.' },
+	{ slug: 'film', title: 'Film', description: 'Projects, process notes, and thoughts on moving images.' },
+	{ slug: 'ttrpg', title: 'TTRPG', description: 'Systems, sessions, mechanics, and table talk.' },
+	{ slug: 'blog', title: 'Blog', description: 'Everything else worth writing down.' },
+];
 ---
-
-<Layout>
-	<Welcome />
+<Layout title="Goblin Thoughts" description="Notes on games, film, tabletop RPGs, and making things.">
+	<section class="hero"><p class="eyebrow">Goblin Thoughts</p><h1>Notes from the workshop.</h1><p class="lede">Devlogs, film projects, tabletop obsessions, and the occasional thought that escaped into the wild.</p></section>
+	<section class="sections" aria-label="Sections">{sections.map((section) => <a class="section-card" href={`/${section.slug}/`}><h2>{section.title}</h2><p>{section.description}</p><span>Explore →</span></a>)}</section>
+	<section class="latest"><div class="section-heading"><p class="eyebrow">Recent writing</p><h2>Fresh from the notebook</h2></div><div class="post-list">{posts.slice(0, 4).map((post) => <PostCard post={post} />)}</div></section>
 </Layout>
+<style>
+	.hero { padding: 5.5rem 0 4rem; max-width: 50rem; } h1 { font-size: clamp(3.2rem, 9vw, 6.8rem); line-height: .9; letter-spacing: -.075em; margin: .5rem 0 1.5rem; }.lede { font-size: 1.2rem; line-height: 1.6; max-width: 39rem; color: var(--muted); }.eyebrow { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); margin: 0; }
+	.sections { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }.section-card { display: grid; gap: .6rem; padding: 1.5rem; min-height: 13rem; border: 1px solid var(--line); border-radius: .45rem; color: inherit; text-decoration: none; background: var(--card); transition: transform .18s ease, border-color .18s ease; }.section-card:hover { transform: translateY(-3px); border-color: var(--accent); }.section-card h2 { margin: 0; font-size: 1.55rem; }.section-card p { margin: 0; color: var(--muted); line-height: 1.5; }.section-card span { align-self: end; color: var(--accent); font-size: .9rem; font-weight: 700; }
+	.latest { margin-top: 6rem; }.section-heading { margin-bottom: 1.5rem; }.section-heading h2 { margin: .35rem 0 0; font-size: 2rem; letter-spacing: -.04em; }.post-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; } @media (max-width: 620px) { .hero { padding: 3.5rem 0; } .sections, .post-list { grid-template-columns: 1fr; } }
+</style>
