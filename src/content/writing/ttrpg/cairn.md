@@ -1,5 +1,5 @@
 ---
-title: Cairn: Searching for the Perfect Adventure
+title: "Cairn: Searching for the Perfect Adventure"
 description: My thoughts on the Cairn (1st ed.) TTRPG System
 pubDate: 2026-09-28
 section: ttrpg # blog, games, film, or ttrpg
