@@ -14,9 +14,7 @@ const base = `${import.meta.env.BASE_URL}/`;
 	<time datetime={data.pubDate.toISOString()}>{date}</time>
 </article>
 <style>
-	.post-card { padding: 1.4rem; border: 1px solid var(--line); border-radius: .45rem; background: var(--card); }
-	.meta, time { font: 700 .72rem/1.3 system-ui, sans-serif; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
-	h3 { margin: .55rem 0; font-size: 1.4rem; letter-spacing: -.03em; }
-	h3 a { text-decoration: none; } h3 a:hover { color: var(--accent); }
-	.post-card > p:not(.meta) { color: var(--muted); line-height: 1.5; margin: 0 0 1rem; }
+	.post-card { position: relative; padding: 1.2rem; overflow: hidden; border: 3px ridge var(--line); background: linear-gradient(135deg, #17245a, #0a1031); box-shadow: inset 0 0 18px #050718; }
+	.post-card::after { content: "✧"; position: absolute; right: .6rem; bottom: -.85rem; color: var(--accent); font-size: 5rem; opacity: .18; }.meta, time { font: 700 .7rem/1.3 "Courier New", monospace; color: var(--acid); text-transform: uppercase; letter-spacing: .08em; }
+	h3 { position: relative; margin: .55rem 0; color: var(--gold); font-family: Georgia, serif; font-size: 1.45rem; letter-spacing: -.03em; } h3 a { text-decoration: none; } h3 a:hover { color: var(--accent); text-decoration: underline; }.post-card > p:not(.meta) { position: relative; color: var(--muted); line-height: 1.5; margin: 0 0 1rem; }
 </style>

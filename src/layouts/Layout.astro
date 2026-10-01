@@ -7,16 +7,26 @@ const base = `${import.meta.env.BASE_URL}/`;
 <html lang="en">
 	<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta name="description" content={description} /><link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} /><title>{title}</title></head>
 	<body>
-		<header><nav aria-label="Main navigation"><a class="brand" href={base}>Goblin Thoughts</a><div><a href={`${base}games/`}>Games</a><a href={`${base}film/`}>Film</a><a href={`${base}ttrpg/`}>TTRPG</a><a href={`${base}blog/`}>Blog</a></div></nav></header>
-		<main><slot /></main><footer>Made with curiosity and probably too many notes.</footer>
+		<div class="starfield" aria-hidden="true"></div>
+		<div class="page-shell">
+			<header>
+				<div class="status-bar"><span>✦ TRANSMISSION RECEIVED ✦</span><span>EST. 2026</span><span>BEST VIEWED WITH CURIOSITY</span></div>
+				<nav aria-label="Main navigation"><a class="brand" href={base}>GOBLIN<br /><em>THOUGHTS</em></a><div><a href={`${base}games/`}>[ GAMES ]</a><a href={`${base}film/`}>[ FILM ]</a><a href={`${base}ttrpg/`}>[ TTRPG ]</a><a href={`${base}blog/`}>[ BLOG ]</a></div></nav>
+			</header>
+			<main><slot /></main>
+			<footer><img src={`${base}gifs/wizard2.gif`} alt="" /><span>© 2026 GOBLIN THOUGHTS • HAND-CRAFTED IN THE DIGITAL DUNGEON</span><span class="counter">VISITORS: 0000∞</span></footer>
+		</div>
 	</body>
 </html>
 <style is:global>
-	:root { --ink: #1c211c; --paper: #f3f0e8; --muted: #62685f; --line: #c9c8ba; --accent: #a44723; --card: #faf8f2; font-family: Georgia, 'Times New Roman', serif; }
-	* { box-sizing: border-box; } body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink); }
-	header, main, footer { width: min(100% - 2.5rem, 72rem); margin-inline: auto; }
-	nav { display: flex; justify-content: space-between; align-items: baseline; padding: 1.5rem 0; border-bottom: 1px solid var(--line); } nav div { display: flex; gap: 1.1rem; }
-	a { color: inherit; } nav a { text-decoration: none; font-size: .92rem; } nav a:hover { color: var(--accent); } .brand { font-weight: 700; letter-spacing: -.03em; font-size: 1.12rem; }
-	footer { margin-top: 6rem; padding: 1.75rem 0 3rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .86rem; }
-	@media (max-width: 620px) { header, main, footer { width: min(100% - 2rem, 72rem); } nav { align-items: flex-start; gap: 1rem; } nav div { flex-wrap: wrap; justify-content: flex-end; gap: .5rem .85rem; } }
+	:root { --ink: #ffefa9; --paper: #071022; --panel: #101d42; --panel-deep: #080f2e; --muted: #b5bce2; --line: #6d6cf0; --accent: #ff4bd8; --acid: #92ff65; --gold: #ffd35c; font-family: "Courier New", Courier, monospace; }
+	* { box-sizing: border-box; } body { min-width: 320px; margin: 0; color: var(--ink); background: #050817; }
+	.starfield { position: fixed; inset: 0; z-index: -2; opacity: .8; background-color: #06081a; background-image: radial-gradient(#fff 1px, transparent 1.5px), radial-gradient(#6f78ff 1px, transparent 1.5px), linear-gradient(135deg, #10195a 0%, transparent 42%, #260a44 100%); background-size: 37px 37px, 61px 61px, 100% 100%; background-position: 0 0, 14px 27px, 0 0; }
+	.starfield::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(111, 90, 255, .07) 4px); pointer-events: none; }
+	.page-shell { width: min(100% - 2rem, 68rem); min-height: 100vh; margin: 0 auto; padding: .7rem clamp(.55rem, 2vw, 1.4rem) 2rem; background: linear-gradient(100deg, rgba(8, 15, 46, .94), rgba(14, 13, 58, .92)); border-inline: 3px ridge #7375e9; box-shadow: 0 0 0 6px #15125a, 0 0 35px rgba(182, 69, 255, .55); }
+	a { color: inherit; } .status-bar { display: flex; justify-content: space-between; gap: .5rem; padding: .35rem .55rem; color: #070b23; background: repeating-linear-gradient(90deg, var(--acid) 0 8px, #c9ff8c 8px 16px); font-size: clamp(.56rem, 1.5vw, .72rem); font-weight: 700; letter-spacing: .06em; }
+	nav { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.15rem .25rem; border-bottom: 3px double var(--gold); } nav div { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .3rem .65rem; } nav a { text-decoration: none; font-size: .8rem; color: var(--acid); text-shadow: 1px 1px #0a0830; } nav div a:hover { color: var(--accent); text-decoration: underline; }
+	.brand { color: var(--gold); font-family: Georgia, serif; font-size: clamp(1.35rem, 4vw, 2rem); font-weight: 900; line-height: .72; letter-spacing: -.08em; text-shadow: 2px 2px #b61c82, 4px 4px #251160; } .brand em { color: var(--accent); font-size: .72em; font-style: normal; letter-spacing: .11em; }
+	footer { display: flex; align-items: center; justify-content: space-between; gap: .8rem; margin-top: 5rem; padding: .9rem; border: 2px ridge var(--line); color: var(--muted); background: #080d2b; font-size: .65rem; text-align: center; } footer img { width: 2.5rem; image-rendering: pixelated; } .counter { padding: .2rem .4rem; color: #11131c; background: var(--acid); font-weight: 700; white-space: nowrap; }
+	@media (max-width: 620px) { .page-shell { width: 100%; padding-inline: .75rem; border: 0; } .status-bar span:nth-child(2) { display: none; } nav { align-items: flex-start; } nav div { justify-content: flex-end; } footer { flex-wrap: wrap; justify-content: center; } }
 </style>
